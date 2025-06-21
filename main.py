@@ -9,7 +9,7 @@ load_dotenv()
 RSS_URLS = ["https://www.prima-tv.ru/news/rss/"]
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
-KEYWORDS = ["ярморок","ярмарка","ярмарку","ярмарк","выставк","фестивал"]
+KEYWORDS = ["ярморок","ярмарка","ярмарку","ярмарк","выставк","фестивал", "праздн", "фестивал"]
 
 def send_telegram_message(text):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -53,4 +53,4 @@ if __name__ == "__main__":
     while True:
         for url in RSS_URLS:
             check_rss_for_keywords(url)
-        time.sleep(36000)
+        time.sleep(60 * 60 * 8)
