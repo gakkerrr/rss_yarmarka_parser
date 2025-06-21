@@ -1,0 +1,7 @@
+services:
+  rss-yarmarka:
+    build: .
+    container_name: rss-yarmarka
+    restart: unless-stopped
+    env_file:
+      - .env  
