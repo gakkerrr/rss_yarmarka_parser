@@ -1,3 +1,4 @@
+import logging
 import feedparser
 import requests
 import time
@@ -10,6 +11,7 @@ RSS_URLS = ["https://www.prima-tv.ru/news/rss/", "https://newslab.ru/news/all/rs
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 KEYWORDS = ["ярморок","ярмарка","ярмарку","ярмарк","выставк","фестивал", "праздн", "фестивал", "концерт"]
+EXISTING_ARTICLES = []
 
 def send_telegram_message(text):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -32,12 +34,18 @@ def check_rss_for_keywords():
             link = entry.get("link", "")
             
             for keyword in KEYWORDS:
-                if keyword in title or keyword in description:
+                if (keyword in title or keyword in description) and title not in EXISTING_ARTICLES:
+
+                    EXISTING_ARTICLES.append(title)
+
                     found_entries.append({
                         'keyword': keyword,
                         'title': title,
                         'link': link
                     })
+
+                    logging.info("found one", title, EXISTING_ARTICLES, found_entries)
+
                     break 
 
     if found_entries:
@@ -48,7 +56,8 @@ def check_rss_for_keywords():
         
         send_telegram_message(message)
     else:
-        print("Ничего не найдено")
+        send_telegram_message("Новых новостей не найдено 😔")
+        logging.info("Новых новостей не найдено")
 
 if __name__ == "__main__":
     while True:
