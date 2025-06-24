@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-RSS_URLS = ["https://www.prima-tv.ru/news/rss/", "https://newslab.ru/news/all/rss", "https://www.press-line.ru/feed"]
+RSS_URLS = ["https://www.prima-tv.ru/news/rss/", "https://newslab.ru/news/all/rss", "https://www.press-line.ru/feed", "https://sibnovosti.ru/rss/"]
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 KEYWORDS = ["ярморок","ярмарка","ярмарку","ярмарк","выставк","фестивал", "праздн", "фестивал", "концерт"]
